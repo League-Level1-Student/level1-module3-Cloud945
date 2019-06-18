@@ -7,6 +7,8 @@ class Frog {
   }
 } 
 Frog jumpy;
+
+
 class Car {
   int xPos;
   int yPos;
@@ -47,7 +49,7 @@ class Car {
     
   
 }
-Car bob = new Car(800, 50, 50, 10);
+Car bob = new Car(800, 50, 50, 5);
 Car billy = new Car(0, 100, 50, 10);
 
 void setup() {
@@ -63,6 +65,15 @@ void draw() {
   bob.moveLeft();
   billy.display();
   billy.moveRight();
+  if(intersects(bob)==true){
+    jumpy.xPos=width/2;
+    jumpy.yPos=height;
+  }
+  if(intersects(billy)==true){
+  jumpy.xPos=width/2;
+  jumpy.yPos=height;
+  }
+
 }
 void keyPressed()
 {
@@ -82,3 +93,11 @@ void keyPressed()
     }
   }
 }
+boolean intersects(Car car) {
+ if ((jumpy.yPos > car.getY() && jumpy.yPos < car.getY()+50) &&
+                (jumpy.xPos > car.getX() && jumpy.xPos < car.getX()+car.getSize())) {
+   return true;
+  }
+ else  {
+  return false;
+ }}
