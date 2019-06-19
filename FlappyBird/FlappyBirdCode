@@ -1,0 +1,61 @@
+
+  
+void setup(){
+  size(600,600);
+}
+
+int birdX = 100;
+int birdY = 250;
+int pipeX=600;
+int upperPipeHeight =(int) random(100,400);
+int lowerPipe = upperPipeHeight + 75;
+int pipeWidth = 50;
+int score=0;
+boolean i=false;
+ 
+void draw(){
+  background(90,125,210);
+  fill(190,150,80);
+  stroke(0,0,0);
+  ellipse(birdX,birdY,25,25);
+  birdY+=3;
+  fill(90,125,50);
+  rect(pipeX,0,pipeWidth,upperPipeHeight);
+  rect(pipeX,lowerPipe,pipeWidth,525-upperPipeHeight);
+  fill(0,0,0);
+  text("Score: "+score,25,25);
+  pipeX-=5;
+  teleportPipes();
+  if(intersectsPipes()==true&&i==false){
+    i = true;
+    background(25,25,25);
+    fill(90,125,50);
+    text("GAME OVER. Your Score: "+ score,(width/2)-60,height/2);
+    //delay(4000);
+    //exit();
+  }
+  text("Score: "+score,0,0);
+  
+}
+void mousePressed(){
+  birdY-=70;
+}
+void teleportPipes(){
+  if (pipeX==0 && intersectsPipes()==false){
+    pipeX=600;
+    upperPipeHeight= (int) random(100,400);
+    lowerPipe= upperPipeHeight + 75;
+    score++;
+  }
+}
+boolean intersectsPipes() { 
+  if(i == false){
+         if (birdY < upperPipeHeight && birdX > pipeX && birdX < (pipeX+pipeWidth)){
+            return true; }
+        else if (birdY>lowerPipe && birdX > pipeX && birdX < (pipeX+pipeWidth)) {
+            return true; }
+        else if (birdY>=600){
+          return true; }
+        else { return false; }}
+  else{return false;}
+}
